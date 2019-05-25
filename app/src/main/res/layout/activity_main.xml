@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnEasy"
+        android:layout_centerInParent="true"
+        android:text="Easy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_below="@id/btnEasy"
+        android:id="@+id/btnMedium"
+        android:layout_centerInParent="true"
+        android:text="Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_below="@id/btnMedium"
+        android:id="@+id/btnHard"
+        android:layout_centerInParent="true"
+        android:text="Hard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

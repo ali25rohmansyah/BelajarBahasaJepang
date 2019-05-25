@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    tools:context=".ui.activity.Done">
+
+    <TextView
+        android:id="@+id/txtScore"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:text="Score : 100"
+        android:paddingTop="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+
+        android:layout_below="@+id/txtScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnTry"
+            android:text="Try Again"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:background="@drawable/btn_answer_background"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_below="@+id/btnTry"
+            android:text="Home"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:background="@drawable/btn_answer_background"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</RelativeLayout>
