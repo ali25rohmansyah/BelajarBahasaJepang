@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.Register">
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/edtNama"
+        android:text="Masukan Nama"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/edtNama"
+        android:layout_centerInParent="true"
+        android:layout_margin="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:layout_below="@+id/edtNama"
+        android:layout_margin="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnSubmit"
+        android:text="Submit"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:background="@drawable/btn_answer_background"
+        android:layout_margin="12dp"
+        android:layout_below="@+id/edtNama"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+</RelativeLayout>

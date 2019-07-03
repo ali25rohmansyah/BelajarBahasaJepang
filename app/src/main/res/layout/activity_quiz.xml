@@ -4,13 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="12dp"
-    tools:context=".MainActivity">
+    android:layout_margin="16dp"
+    tools:context=".ui.activity.Quiz">
+
+    <TextView
+        android:layout_above="@id/btnEasy"
+        android:text="Select Your Difficulty"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btnEasy"
         android:layout_centerInParent="true"
         android:text="Easy"
+        android:textColor="@android:color/black"
+        android:background="@drawable/btn_answer_background"
+        android:layout_margin="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -19,6 +32,9 @@
         android:id="@+id/btnMedium"
         android:layout_centerInParent="true"
         android:text="Medium"
+        android:textColor="@android:color/black"
+        android:background="@drawable/btn_answer_background"
+        android:layout_margin="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -27,6 +43,9 @@
         android:id="@+id/btnHard"
         android:layout_centerInParent="true"
         android:text="Hard"
+        android:textColor="@android:color/black"
+        android:background="@drawable/btn_answer_background"
+        android:layout_margin="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -1,9 +1,11 @@
 package com.example.quizjepang.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.quizjepang.R;
@@ -18,39 +21,55 @@ import com.example.quizjepang.common.Common;
 
 import java.util.Random;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class Playing extends AppCompatActivity implements View.OnClickListener {
+
+    LayoutInflater inflater;
+    View dialogView;
 
     FrameLayout frameLayout;
     View level_easy, level_hard, level_medium;
     ImageView img1H, img2H, img3H, img4H, img1E, img2E, img1M, img2M, img3M;
-    TextView txtScore, txtQuestion, txtTotalQuestion;
+    TextView txtScore, txtQuestion, txtTotalQuestion, txtTimer;
     EditText edtLatin;
-    Button btnNext;
-    ProgressBar progress;
+    Button btnNext, btnYes, btnNo;
 
     CountDownTimer countDownTimer;
     final static long INTERVAL = 1000; // 1 sec
-    final static long TIMEOUT = 7000;  // 7 sec
+    final static long TIMEOUT = 60000;  // 1 menit
 
-    int index=0, score=0, thisQuestion=0, totalQuestion, correctAnswer, imageScore, progressValue = 0;;
+    int index=0, score=0, thisQuestion=0, totalQuestion, correctAnswer, imageScore, progressValue = 61;;
+    int i;
+    Random r;
 
-    Random r = new Random();
-    int i = r.nextInt((Common.imageList.size()-3) + 1);
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Georgia.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
         setContentView(R.layout.activity_playing);
+
+        r = new Random();
+        i = r.nextInt((Common.imageList.size()-3) + 1);
 
         //Views
         frameLayout = findViewById(R.id.frameLayout);
         txtQuestion = findViewById(R.id.txtQuestion);
         txtScore = findViewById(R.id.txtScore);
         txtTotalQuestion = findViewById(R.id.txtTotalQuestion);
+        txtTimer = findViewById(R.id.txtTimer);
         edtLatin = findViewById(R.id.edtLatin);
         btnNext = findViewById(R.id.btnNext);
-        progress = findViewById(R.id.progress);
 
         level_easy = getLayoutInflater().inflate(R.layout.level_easy, frameLayout, false);
         img1E = level_easy.findViewById(R.id.img1E);
@@ -67,8 +86,6 @@ public class Playing extends AppCompatActivity implements View.OnClickListener {
         img3H = level_hard.findViewById(R.id.img3H);
         img4H = level_hard.findViewById(R.id.img4H);
 
-        progress.setMax(7);
-
         img1E.setOnClickListener(this);
         img2E.setOnClickListener(this);
         img1M.setOnClickListener(this);
@@ -83,8 +100,9 @@ public class Playing extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 countDownTimer.cancel();
-                progressValue=0;
-                progress.setProgress(progressValue);
+                progressValue=61;
+                txtTimer.setText(String.valueOf(progressValue));
+
                 i = r.nextInt((Common.imageList.size()-3) + 1);
                 if(index<totalQuestion){
                     img1E.setBackgroundResource(R.color.putih);
@@ -95,7 +113,7 @@ public class Playing extends AppCompatActivity implements View.OnClickListener {
                     img1H.setBackgroundResource(R.color.putih);
                     img2H.setBackgroundResource(R.color.putih);
                     img3H.setBackgroundResource(R.color.putih);
-                    img1E.setBackgroundResource(R.color.putih);
+                    img4H.setBackgroundResource(R.color.putih);
 
                     if(edtLatin.getText().toString().equals(Common.questionList.get(index).getKata())){
                         //CorrecAnswer;
@@ -309,16 +327,15 @@ public class Playing extends AppCompatActivity implements View.OnClickListener {
         countDownTimer = new CountDownTimer(TIMEOUT,INTERVAL) {
             @Override
             public void onTick(long miniSec) {
-                progressValue++;
-                progress.setProgress(progressValue);
+                progressValue--;
+                txtTimer.setText(String.valueOf(progressValue));
             }
 
             @Override
             public void onFinish() {
                 countDownTimer.cancel();
                 i = r.nextInt((Common.imageList.size()-3) + 1);
-                progressValue=0;
-                progress.setProgress(progressValue);
+                progressValue=61;
 
                 img1E.setBackgroundResource(R.color.putih);
                 img2E.setBackgroundResource(R.color.putih);
@@ -335,11 +352,62 @@ public class Playing extends AppCompatActivity implements View.OnClickListener {
         }.start();
     }
 
+    private void pauseDialog() {
+
+        android.app.AlertDialog.Builder start = new android.app.AlertDialog.Builder(this);
+        inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.start, null);
+
+        start.setTitle("Pause")
+                .setView(dialogView)
+                .setIcon(R.drawable.katakana)
+                .setMessage("Are you sure want to leave ?");
+
+        final android.app.AlertDialog alertDialog = start.create();
+
+        btnYes = dialogView.findViewById(R.id.btnStart);
+        btnNo = dialogView.findViewById(R.id.btnCancel);
+
+        btnYes.setText("Yes");
+        btnNo.setText("No");
+
+        alertDialog.show();
+        countDownTimer.cancel();
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                //Final Question
+                Intent intent = new Intent(Playing.this, Done.class);
+                Bundle dataSend = new Bundle();
+                dataSend.putInt("QuestionScore", score);
+                intent.putExtras(dataSend);
+
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                countDownTimer.start();
+            }
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 
-        totalQuestion = Common.questionList.size();
-        showQuestion(index);
+            totalQuestion = 20;
+            showQuestion(index);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        pauseDialog();
     }
 }

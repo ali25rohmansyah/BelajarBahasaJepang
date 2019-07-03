@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">quizJepang</string>
+
+    <string-array name="hiragana">
+        <item>Seion</item>
+        <item>Dakuon</item>
+        <item>Handakuon</item>
+        <item>Yoon</item>
+    </string-array>
+
+    <string-array name="katakana">
+        <item>Seion</item>
+        <item>Tenten dan Maru</item>
+        <item>Yoon</item>
+    </string-array>
 </resources>

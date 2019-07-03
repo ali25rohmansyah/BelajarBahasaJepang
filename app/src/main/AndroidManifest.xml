@@ -11,9 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.Done"></activity>
+        <activity android:name=".ui.activity.Home"></activity>
+        <activity android:name=".ui.activity.Register"/>
+        <activity android:name=".ui.activity.Katakana" />
+        <activity android:name=".ui.activity.Hiragana" />
+        <activity android:name=".ui.activity.Quiz" />
+        <activity android:name=".ui.activity.Done" />
         <activity android:name=".ui.activity.Playing" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.splashScreen.SplashScreen" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

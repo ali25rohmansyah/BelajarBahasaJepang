@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.quizjepang.MainActivity;
 import com.example.quizjepang.R;
 
 public class Done extends AppCompatActivity {
@@ -29,28 +28,29 @@ public class Done extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Done.this, MainActivity.class));
+                startActivity(new Intent(Done.this, Home.class));
+                finish();
             }
         });
         btnTry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Done.this, Playing.class));
-
+                finish();
             }
         });
 
         Bundle extra = getIntent().getExtras();
         if (extra != null){
             score = extra.getInt("QuestionScore");
-            txtScore.setText(String.format("QuestionScore : %d", score));
+            txtScore.setText(String.format("Question Score : %d", score));
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(Done.this, MainActivity.class));
+        startActivity(new Intent(Done.this, Quiz.class));
         finish();
     }
 }
